@@ -1,0 +1,9 @@
+body{
+    font-family: Consolas, Arial;
+    font-weight: normal;
+}
+
+@font-face{
+    font-family: Consolas;
+    src: url(/fonts/Consolas.ttf);
+}
