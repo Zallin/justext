@@ -1,30 +1,32 @@
 var express = require('express'),
-    sessions = require('client-sessions');
+    session = require('client-sessions'),
+    MongoClient = require('mongodb').MongoClient,
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser');
 
 var app = express();
 
 app.use(express.static('public'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.set('view engine', 'jade');
 
 app.use(session({
    cookieName : 'session',
    secret : 'fejfeij3939r-3f3f',
-   duration : 5000,
+   duration : 1000 * 60 * 60,
    activeDuration : 5000
-}));      
+}));
 
-app.get('/', function (req, res, next){
-   res.render('index');
-});
+MongoClient.connect('mongodb://localhost/justext', function (err, db){
+   if (err) {
+      throw err;
+   }
 
-app.get('/login', function (req, res, next){
-   res.render('login');    
-});
+   require('./routes')(app, db);
 
-app.get('/register', function (req, res, next){
-   res.render('register');
-});
-
-app.listen(3000, function (){
-   console.log('listening'); 
+   app.listen(3000, function (){
+      console.log('listening');
+   });
 });

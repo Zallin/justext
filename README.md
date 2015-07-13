@@ -1,2 +1,2 @@
 # justext
-Distraction free forum
+Distraction free collective blogging system
