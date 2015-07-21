@@ -3,6 +3,7 @@ var express = require('express'),
     MongoClient = require('mongodb').MongoClient,
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
     config = require('./config.json');
 
 var app = express();
@@ -10,6 +11,7 @@ var app = express();
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(methodOverride());
 
 app.set('view engine', 'jade');
 

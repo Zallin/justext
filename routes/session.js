@@ -84,7 +84,7 @@ function SessionHandler(db){
       users.update(req.session.email, data, function (err){
         if(err) return next(err);
 
-        res.status(200).send();
+        next();
       });
     }
 

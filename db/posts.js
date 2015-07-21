@@ -29,12 +29,33 @@ function PostDAO(db){
     });
   }
 
+  this.getUsersPosts = function(name, n, fn){
+    posts.find({"author" : name}).sort({date : -1}).limit(n).toArray(function (err, docs){
+      if(err) return fn(err, null);
+      fn(null, docs);
+    });
+  }
+
   this.getPostByPermalink  = function(permalink, fn){
     posts.findOne({permalink : permalink}, function (err, post) {
       if(err) return fn(err, null);
-      
+
       fn(null, post);
     })
+  }
+
+  this.updateAuthor = function (oldName, newName, fn){
+    posts.update({"author" : oldName}, {$set : {"author" : newName}}, {multi : true}, function (err, docs){
+      if(err) return fn(err, null);
+      fn();
+    });
+  }
+
+  this.removePost = function (permalink, fn){
+    posts.remove({permalink : permalink}, function (err){
+      if(err) return fn(err, null);
+      fn(null);
+    });
   }
 }
 

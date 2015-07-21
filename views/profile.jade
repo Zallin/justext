@@ -19,7 +19,9 @@ block content
     input(type='submit', class='button', value='Save changes')
   div.posts
     h2 Posts
+    unless posts.length
+      p Looks like you haven`t written any posts yet
     each post in posts
       div.post-title
-        h3 #{post.title}
+        a(href='/posts/#{post.permalink}', _permalink='#{post.permalink}') #{post.title}
         input(type='button', value='Delete', class='button small delete')

@@ -51,12 +51,40 @@ function ContentHandler(db){
     }
 
     this.displayProfile = function (req, res, next){
-      posts.getPosts(5, function (err, posts){
+      posts.getUsersPosts(req.user.name, 5, function (err, posts){
         res.render('profile', {
           csrfToken : req.csrfToken(),
           user : req.user,
           posts : posts
         });
+      });
+    }
+
+    this.updateAuthor = function (req, res, next){
+      if(!req.body.name) return next();
+
+      posts.updateAuthor(req.user.name, req.body.name, function (err){
+        if(err) return next(err);
+        res.status(200).send();
+      });
+    }
+
+    this.deletePost = function (req, res, next){
+      posts.getPostByPermalink(req.params.permalink, function (err, post){
+        if(err) return next(err);
+
+        if(post){
+          if(post.author == req.user.name){
+            posts.removePost(req.params.permalink, function (err){
+              if(err) return next(err);
+              res.status(200).send();
+            });
+          } else {
+            next(new ReqErr(403));
+          }
+        } else {
+          next(new ReqErr(404));
+        }
       });
     }
 }

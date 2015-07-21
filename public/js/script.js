@@ -17,13 +17,13 @@ $(document).ready(function (){
         var key = form[i].name, val = form[i].value;
         vals[key] = val;
     }
-    console.log(vals);
+
     reqOpts.data = JSON.stringify(vals);
 
     var jqxhr = $.ajax(reqOpts);
 
-    jqxhr.done(function (){
-
+    jqxhr.done(function (data){
+      if(data.redirect) window.location.href = data.redirect;
     });
 
     jqxhr.fail(function (){
@@ -31,5 +31,25 @@ $(document).ready(function (){
     });
 
     this.reset();
+  });
+
+  $('.delete').click(function (e){
+    e.preventDefault();
+    var link = $(this).prev().attr('_permalink');
+
+    var reqOpts = {
+        method : "POST",
+        url : '/posts/' + link,
+    }
+
+    reqOpts.headers = {
+      "X-HTTP-Method-Override" : "DELETE"
+    }
+
+    var jqxhr = $.ajax(reqOpts);
+
+    jqxhr.done(function (){
+
+    });
   });
 });

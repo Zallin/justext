@@ -31,7 +31,7 @@ module.exports = function (app, connection){
 
     app.get('/profile', csrfProtection, sessionHandler.requireLogin, contentHandler.displayProfile);
 
-    app.post('/profile', csrfProtection, sessionHandler.requireLogin, sessionHandler.updateInfo);
+    app.post('/profile', csrfProtection, sessionHandler.requireLogin, sessionHandler.updateInfo, contentHandler.updateAuthor);
 
     app.get('/new', csrfProtection, sessionHandler.requireLogin, function (req, res, next){
       res.render('newPost', {
@@ -41,7 +41,9 @@ module.exports = function (app, connection){
 
     app.post('/new', csrfProtection, sessionHandler.requireLogin, contentHandler.addPost);
 
-    app.get('/posts/:permalink', sessionHandler.requireLogin, contentHandler.getPostByPermalink)
+    app.get('/posts/:permalink', sessionHandler.requireLogin, contentHandler.getPostByPermalink);
+
+    app.delete('/posts/:permalink', sessionHandler.requireLogin, contentHandler.deletePost)
 
     app.get('/:anything', function (req, res, next){
       res.redirect('/');
