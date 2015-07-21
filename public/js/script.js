@@ -1,29 +1,35 @@
-window.onload = function (){
-    $('form').submit(function(e){
-        e.preventDefault();
+$(document).ready(function (){
 
-        var vals = {}
+  var reqOpts = {
+    method : 'POST',
+    url : window.location.href,
+    contentType : 'application/json'
+  }
 
-        var form = $(this).serializeArray();
+  $('form').submit(function (e){
+    e.preventDefault();
 
-        for(var i = 0; i < form.length; i++){
-            var key = form[i].name, val = form[i].value;
-            vals[key] = val;
-        }
+    var vals = {};
 
-        var opts = {
-            method : 'POST',
-            url : window.location.href,
-            contentType : 'application/json',
-            data : JSON.stringify(vals)
-        }
+    var form = $(this).serializeArray();
 
-        var jqxhr = $.ajax(opts);
+    for(var i = 0; i < form.length; i++){
+        var key = form[i].name, val = form[i].value;
+        vals[key] = val;
+    }
+    console.log(vals);
+    reqOpts.data = JSON.stringify(vals);
 
-        jqxhr.done(function(data){
-          window.location.replace(data.redirect);
-        });
+    var jqxhr = $.ajax(reqOpts);
 
-        this.reset();
+    jqxhr.done(function (){
+
     });
-}
+
+    jqxhr.fail(function (){
+
+    });
+
+    this.reset();
+  });
+});

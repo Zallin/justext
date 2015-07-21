@@ -1,0 +1,25 @@
+extends ./layout.jade
+
+block title
+  title justext | profile
+
+block menu
+  include ./menu.jade
+
+block content
+  form
+    h2 Profile page
+    label Email:
+    input(type='text', name='email', value=user.email)
+    label Nickname:
+    input(type='text', name='name', value=user.name ? user.name : '')
+    label About you:
+    textarea(name='about')= user.about ? user.about : ''
+    input(type='hidden', name='_csrf', value='#{csrfToken}')
+    input(type='submit', class='button', value='Save changes')
+  div.posts
+    h2 Posts
+    each post in posts
+      div.post-title
+        h3 #{post.title}
+        input(type='button', value='Delete', class='button small delete')

@@ -1,4 +1,17 @@
-extends layout.jade
+extends ./layout.jade
+
+block title
+  title justext | posts
+
+block menu
+  include ./menu.jade
 
 block content
-    h2 This is an index page
+  h1 Recent posts
+    unless posts.length
+      p There is no posts yet
+    each post in posts
+      div.post
+        h2 #{post.title}
+        p #{post.body}
+        p Author : #{post.author}

@@ -2,7 +2,8 @@ var express = require('express'),
     session = require('client-sessions'),
     MongoClient = require('mongodb').MongoClient,
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    config = require('./config.json');
 
 var app = express();
 
@@ -19,7 +20,7 @@ app.use(session({
    activeDuration : 5000
 }));
 
-MongoClient.connect('mongodb://localhost/justext', function (err, db){
+MongoClient.connect(config.database, function (err, db){
    if (err) {
       throw err;
    }

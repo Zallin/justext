@@ -3,6 +3,32 @@ body{
     font-weight: normal;
 }
 
+nav a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.post{
+  max-width: 900px;
+}
+
+.post h2{
+  font-size: 25px;
+}
+
+.post p{
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.posts h3{
+  display: inline-block;
+}
+
+.posts .delete{
+  float: right;
+}
+
 @font-face{
     font-family: Consolas;
     src: url(/fonts/Consolas.ttf);

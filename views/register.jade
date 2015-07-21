@@ -2,14 +2,12 @@ extends ./layout
 
 block title
     title justext | register
-    
+
 block content
-        div(class='row')
-            div(class='small-12 medium-8 medium-offset-2 large-8 large-offset-2')
-                form
-                    h2 Email:
-                    input(type='text', name='email', required)
-                    h2 Password:
-                    input(type='password', name='password', required)
-                    input(type='hidden', name='_csrf', value='#{csrfToken}')
-                    input(type='submit', class='button')
+    form
+      h2 Email:
+      input(type='text', name='email', required)
+      h2 Password:
+      input(type='password', name='password', required)
+      input(type='hidden', name='_csrf', value='#{csrfToken}')
+      input(type='submit', class='button')

@@ -1,0 +1,19 @@
+extends ./layout.jade
+
+block title
+  if post
+    title #{post.title} | justext
+  if err
+    title #{err} | justext
+
+block menu
+  include ./menu.jade
+
+block content
+  div.post
+    if post
+      h2 #{post.title}
+      p #{post.body}
+      p author : #{post.author}
+    if err
+      h2 #{err}

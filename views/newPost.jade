@@ -1,0 +1,17 @@
+extends layout.jade
+
+block title
+  title justext | new post
+
+block menu
+  include ./menu.jade
+
+block content
+  h2 Add new post
+  form
+    label Title
+    input(type='text', name='title', required)
+    label Body
+    textarea(name='body', required)
+    input(type='hidden', name='_csrf', value='#{csrfToken}')
+    input(type='submit', class='button', value='Add post')
